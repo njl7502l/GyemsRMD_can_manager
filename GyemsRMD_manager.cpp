@@ -17,71 +17,56 @@ void GyemsRMD_manager::read(FlexCAN_T4_manager *canmanager) {
     gotData.pid.iqKi = data[7];
     break;
   case 0x33:
-    i32tc.i = 0;
-    i32tc.c[0] = data[4];
-    i32tc.c[1] = data[5];
-    i32tc.c[2] = data[6];
-    i32tc.c[3] = data[7];
-    gotData.accel.current = i32tc.i;
+    myMath.i32c.clear();
+    myMath.i32c.write(data[4], data[5], data[6], data[7]);
+    gotData.accel.current = myMath.i32c.read();
     break;
   case 0x34:
-    i32tc.i = 0;
-    i32tc.c[0] = data[4];
-    i32tc.c[1] = data[5];
-    i32tc.c[2] = data[6];
-    i32tc.c[3] = data[7];
-    gotData.accel.target = i32tc.i;
+    myMath.i32c.clear();
+    myMath.i32c.write(data[4], data[5], data[6], data[7]);
+    gotData.accel.target = myMath.i32c.read();
     break;
   case 0x90:
-    ui16tc.i = 0;
-    ui16tc.c[0] = data[2];
-    ui16tc.c[1] = data[3];
-    gotData.encoder.current = ui16tc.i;
-    ui16tc.i = 0;
-    ui16tc.c[0] = data[4];
-    ui16tc.c[1] = data[5];
-    gotData.encoder.original = ui16tc.i;
-    ui16tc.i = 0;
-    ui16tc.c[0] = data[6];
-    ui16tc.c[1] = data[7];
-    gotData.encoder.offset = ui16tc.i;
+    myMath.ui16c.clear();
+    myMath.ui16c.write(data[2], data[3]);
+    gotData.encoder.current = myMath.ui16c.read();
+    myMath.ui16c.clear();
+    myMath.ui16c.write(data[4], data[5]);
+    gotData.encoder.original = myMath.ui16c.read();
+    myMath.ui16c.clear();
+    myMath.ui16c.write(data[6], data[7]);
+    gotData.encoder.offset = myMath.ui16c.read();
     break;
   case 0x91:
   case 0x19:
-    ui16tc.i = 0;
-    ui16tc.c[0] = data[6];
-    ui16tc.c[1] = data[7];
-    gotData.encoder.offset = ui16tc.i;
+    myMath.ui16c.clear();
+    myMath.ui16c.write(data[6], data[7]);
+    gotData.encoder.offset = myMath.ui16c.read();
     break;
   case 0x92:
-    i64tc.i = 0;
-    i64tc.c[0] = data[1];
-    i64tc.c[1] = data[2];
-    i64tc.c[2] = data[3];
-    i64tc.c[3] = data[4];
-    i64tc.c[4] = data[5];
-    i64tc.c[5] = data[6];
-    i64tc.c[6] = data[7];
-    gotData.angle.rawMultiTurn = i64tc.i;
-    gotData.angle.multiTurn = (0.01 * i64tc.i);
+    myMath.i64c.clear();
+    myMath.i64c.write(data[1], data[2], data[3], data[4], data[5], data[6],
+                      data[7], 0);
+    gotData.angle.rawMultiTurn = myMath.i64c.read();
+    gotData.angle.multiTurn = (0.01 * gotData.angle.rawMultiTurn);
     break;
   case 0x94:
-    ui16tc.i = 0;
-    ui16tc.c[0] = data[6];
-    ui16tc.c[1] = data[7];
-    gotData.angle.rawSingleTurn = ui16tc.i;
-    gotData.angle.singleTurn = (0.01 * ui16tc.i);
+    myMath.ui16c.clear();
+    myMath.ui16c.write(data[6], data[7]);
+    gotData.angle.rawSingleTurn = myMath.ui16c.read();
+    gotData.angle.singleTurn = (0.01 * gotData.angle.rawSingleTurn);
     break;
   case 0x9A:
     gotData.information.temperature = data[1];
-    ui16tc.i = 0;
-    ui16tc.c[0] = data[3];
-    ui16tc.c[1] = data[4];
-    gotData.information.rawVoltage = ui16tc.i;
-    gotData.information.voltage = (0.1 * ui16tc.i);
+    myMath.ui16c.clear();
+    myMath.ui16c.write(data[3], data[4]);
+    gotData.information.rawVoltage = myMath.ui16c.read();
+    gotData.information.voltage = (0.1 * gotData.information.rawVoltage);
     gotData.information.error.rawState = data[7];
-    gotData.information.error.lowVoltageProtection = bitRead(data[7],0);
-    gotData.information.error.overTemperatureProtection = bitRead(data[7],3);
+    gotData.information.error.lowVoltageProtection =
+        bitRead(gotData.information.error.rawState, 0);
+    gotData.information.error.overTemperatureProtection =
+        bitRead(gotData.information.error.rawState, 3);
     break;
   case 0x9C:
     gotData.information.temperature = data[1];

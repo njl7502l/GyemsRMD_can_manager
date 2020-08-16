@@ -3,30 +3,14 @@
 
 #include <Arduino.h>
 #include <FlexCAN_T4_manager.h>
+#include <MyMath.h>
 
 class GyemsRMD_manager {
 private:
+  MyMath myMath;
   const uint8_t CONTROL_COMMAND[24] = {
       0,    0x30, 0x31, 0x32, 0x33, 0x34, 0x90, 0x91, 0x19, 0x92, 0x94, 0x9A,
       0x9B, 0x9C, 0x9D, 0x80, 0x81, 0x88, 0xA1, 0xA2, 0xA3, 0xA4, 0xA5, 0xA6};
-  
-  union Int16toChar {
-    int16_t i;
-    uint8_t c[2];
-  } i16tc;
-  union Int32toChar {
-    int32_t i;
-    uint8_t c[4];
-  } i32tc;
-  union Int64toChar {
-    int64_t i;
-    uint8_t c[8];
-  } i64tc;
-  union Uint16toChar {
-    uint16_t i;
-    uint8_t c[2];
-  } ui16tc;
-
   class Values {
   public:
     class Pid { // 0-255 uint value
@@ -58,21 +42,21 @@ private:
       double singleTurn;      // unit [deg] (unsigned)
     } angle;
 
-    class Torque{
+    class Torque {
       int16_t rawIq;
-    }torque;
+    } torque;
 
     class Information {
     public:
-      int8_t temperature; // unit 1[c'/LSB]
-      uint16_t rawVoltage;   // unit 0.1[v/LSB]
+      int8_t temperature;  // unit 1[c'/LSB]
+      uint16_t rawVoltage; // unit 0.1[v/LSB]
       double voltage;
-      class Error{
-        public:
+      class Error {
+      public:
         uint8_t rawState;
         bool lowVoltageProtection;
         bool overTemperatureProtection;
-      }error;
+      } error;
     } information;
   };
 
