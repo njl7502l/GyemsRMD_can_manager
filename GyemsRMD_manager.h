@@ -26,6 +26,23 @@ private:
       int32_t target;
     } accel;
 
+    class Torque {
+    public:
+      int16_t rawIq; // -2048~2048 map -33~33[A]
+      double iq;     // -33~33[A]
+      int16_t rawIa; // -2048~2048 map -33~33[A]
+      double ia;     // -33~33[A]
+      int16_t rawIb; // -2048~2048 map -33~33[A]
+      double ib;     // -33~33[A]
+      int16_t rawIc; // -2048~2048 map -33~33[A]
+      double ic;     // -33~33[A]
+    } torque;
+
+    class Speed {
+    public:
+      int16_t current;
+    } speed;
+
     class Encoder { // 14bit encoder value range 0-0x3FFF
     public:
       uint16_t current;
@@ -41,10 +58,6 @@ private:
       uint16_t rawSingleTurn; // unit 0.01[deg/LSB]
       double singleTurn;      // unit [deg] (unsigned)
     } angle;
-
-    class Torque {
-      int16_t rawIq;
-    } torque;
 
     class Information {
     public:
