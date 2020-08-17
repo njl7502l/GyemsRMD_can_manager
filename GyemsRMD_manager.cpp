@@ -13,66 +13,66 @@ int GyemsRMD_manager::RawData::write(uint8_t data[8]) {
   case 0x30:
   case 0x31:
   case 0x32:
-    pid.position.kp = data[2];
-    pid.position.ki = data[3];
-    pid.speed.kp = data[4];
-    pid.speed.ki = data[5];
-    pid.torque.kp = data[6];
-    pid.torque.ki = data[7];
+    datas.pid.position.kp = data[2];
+    datas.pid.position.ki = data[3];
+    datas.pid.speed.kp = data[4];
+    datas.pid.speed.ki = data[5];
+    datas.pid.torque.kp = data[6];
+    datas.pid.torque.ki = data[7];
     break;
   case 0x33:
-    accel.current[0] = data[4];
-    accel.current[1] = data[5];
-    accel.current[2] = data[6];
-    accel.current[3] = data[7];
+    datas.accel.current[0] = data[4];
+    datas.accel.current[1] = data[5];
+    datas.accel.current[2] = data[6];
+    datas.accel.current[3] = data[7];
     break;
   case 0x34:
-    accel.target[0] = data[4];
-    accel.target[1] = data[5];
-    accel.target[2] = data[6];
-    accel.target[3] = data[7];
+    datas.accel.target[0] = data[4];
+    datas.accel.target[1] = data[5];
+    datas.accel.target[2] = data[6];
+    datas.accel.target[3] = data[7];
     break;
   case 0x90:
-    encoder.current[0] = data[2];
-    encoder.current[1] = data[3];
-    encoder.original[0] = data[4];
-    encoder.original[1] = data[5];
-    encoder.offset[0] = data[6];
-    encoder.offset[1] = data[7];
+    datas.encoder.current[0] = data[2];
+    datas.encoder.current[1] = data[3];
+    datas.encoder.original[0] = data[4];
+    datas.encoder.original[1] = data[5];
+    datas.encoder.offset[0] = data[6];
+    datas.encoder.offset[1] = data[7];
     break;
   case 0x91:
   case 0x19:
-    encoder.offset[0] = data[6];
-    encoder.offset[1] = data[7];
+    datas.encoder.offset[0] = data[6];
+    datas.encoder.offset[1] = data[7];
     break;
   case 0x92:
-    angle.multiTurn[0] = data[1];
-    angle.multiTurn[1] = data[2];
-    angle.multiTurn[2] = data[3];
-    angle.multiTurn[3] = data[4];
-    angle.multiTurn[4] = data[5];
-    angle.multiTurn[5] = data[6];
-    angle.multiTurn[6] = data[7];
-    angle.multiTurn[7] = 0;
+    datas.angle.multiTurn[0] = data[1];
+    datas.angle.multiTurn[1] = data[2];
+    datas.angle.multiTurn[2] = data[3];
+    datas.angle.multiTurn[3] = data[4];
+    datas.angle.multiTurn[4] = data[5];
+    datas.angle.multiTurn[5] = data[6];
+    datas.angle.multiTurn[6] = data[7];
+    datas.angle.multiTurn[7] = 0;
     break;
   case 0x94:
-    angle.singleTurn[0] = data[6];
-    angle.singleTurn[1] = data[7];
+    datas.angle.singleTurn[0] = data[6];
+    datas.angle.singleTurn[1] = data[7];
     break;
   case 0x9A:
-    information.temperature = data[1];
-    information.voltage[0] = data[3];
-    information.voltage[1] = data[4];
-    information.errorState = data[7];
+    datas.information.temperature = data[1];
+    datas.information.voltage[0] = data[3];
+    datas.information.voltage[1] = data[4];
+    datas.information.errorState = data[7];
     break;
   case 0x9C:
-    information.temperature = data[1];
-    current.iq[0] = data[2];
-    current.iq[1] = data[3];
-    speed.current[0] = data[4];
-    speed.current[1] = data[5];
-    encoder.current[0] = data[6];
-    encoder.current[1] = data[7];
+    datas.information.temperature = data[1];
+    datas.current.iq[0] = data[2];
+    datas.current.iq[1] = data[3];
+    datas.speed.current[0] = data[4];
+    datas.speed.current[1] = data[5];
+    datas.encoder.current[0] = data[6];
+    datas.encoder.current[1] = data[7];
     break;
   case 0x9D:
 
