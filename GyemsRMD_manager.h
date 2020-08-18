@@ -1,11 +1,11 @@
-#ifndef GyemsRMD_manager_h
-#define GyemsRMD_manager_h
+#ifndef GyemsRMD_can_manager_h
+#define GyemsRMD_can_manager_h
 
 #include <Arduino.h>
 #include <FlexCAN_T4_manager.h>
 #include <MyMath.h>
 
-class GyemsRMD_manager {
+class GyemsRMD_can_manager {
 private:
   MyMath myMath;
   const uint8_t CONTROL_COMMAND[24] = {

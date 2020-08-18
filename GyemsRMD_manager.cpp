@@ -1,14 +1,14 @@
-#include <GyemsRMD_manager.h>
+#include <GyemsRMD_can_manager.h>
 
-void GyemsRMD_manager::setId(int Id) { motorId = 0x140 + Id; }
+void GyemsRMD_can_manager::setId(int Id) { motorId = 0x140 + Id; }
 
-void GyemsRMD_manager::read(FlexCAN_T4_manager *canmanager) {
+void GyemsRMD_can_manager::read(FlexCAN_T4_manager *canmanager) {
   uint8_t data[8] = {};
   canmanager->getBus3(motorId, data);
   rawData.write(data);
 }
 
-int GyemsRMD_manager::RawData::write(uint8_t data[8]) {
+int GyemsRMD_can_manager::RawData::write(uint8_t data[8]) {
   switch (data[0]) {
   case 0x30:
   case 0x31:
